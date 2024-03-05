@@ -31,16 +31,46 @@ public class LinkedList {
 
     // find a node, return whether found or not
     public boolean find(Pokemon mon) {
-        // FINISH ME
+        Node current = head; // start off at head
+        while (current != null) { // while not at the end
+            if (current.mon.equals(mon)) { // check if found
+                return true;
+            }
+            current = current.next; // go to next Pokémon
+        }
+        return false; // not found
     }
 
     // Insert a node at the end of the list
     public void insert(Pokemon mon) {
-        // FINISH ME
+        Node newNode = new Node(); // created new node
+        newNode.mon = mon; // set Pokémon inside node
+
+        if (head == null) { // empty list
+            head = newNode;
+        } else if (head.mon.compareTo(mon) >= 0){ // insert at head
+            newNode.next = head; // set new node's next to head
+            head = newNode; // set head to new node
+        } else {
+            Node runner = head.next; // runner start at second node
+            Node prev = head; // previous node start at head
+            while (runner != null && runner.mon.compareTo(mon) < 0) { // find where to insert
+                prev = runner; // set previous to runner
+                runner = runner.next; // runner goes to next node
+            }
+            newNode.next = runner; // set new node's next to runner
+            prev.next = newNode; // set previous node's next to new node
+        }
     }
 
     // Delete a node at the beginning of the Linked List and return it
     public Pokemon pop () {
-        // FINISH ME
+        if (head != null) {
+            Node temp = head;
+            head = head.next;
+            return temp.mon;
+        } else {
+            return null;
+        }
     }
 }
